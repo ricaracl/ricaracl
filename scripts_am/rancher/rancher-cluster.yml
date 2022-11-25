@@ -1,0 +1,28 @@
+ nodes:
+  - address: 10.249.225.131
+    user: ec2-user
+    role: [controlplane, worker, etcd]
+  - address: 10.249.225.145
+    user: ec2-user
+    role: [controlplane, worker, etcd]
+  - address: 10.249.225.215
+    user: ec2-user
+    role: [controlplane, worker, etcd]
+  - address: 10.249.225.141
+    user: ec2-user
+    role: [controlplane, worker, etcd]
+
+
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+
+# Required for external TLS termination with
+# ingress-nginx v0.22+
+ingress:
+  provider: nginx
+  options:
+    use-forwarded-headers: "true"
+

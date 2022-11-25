@@ -1,0 +1,33 @@
+ 
+i-020fcee6d60c5f52f (ec2-sa-east-1c-p-elastickibana)   10.219.68.249
+
+ i-01051ad739d21b5aa (ec2-sa-east-1a-p-elastickibana)  10.219.70.219
+
+i-085b41bc414b0eca0 (ec2-sa-east-1a-p-logstash)   10.219.70.165
+
+ i-0d4b610095d455427 (ec2-sa-east-1c-p-logstash) 10.219.68.211
+
+ 
+ curl localhost:9200/_cat/health -s
+ 
+ 1650466971 15:02:51 planck green 2 2 224 112 0 0 0 0 - 100.0%
+ 
+ 
+ status
+ curl localhost:9200/_cat/health -s | awk '{print $4}'
+ 
+ sincronismo
+  curl localhost:9200/_cat/health -s | awk '{print $14}' | cut -d. -f1
+  
+  indices Giga
+  curl -XGET http://localhost:9200/_cat/indices?v | grep gb
+  
+  
+  
+1650990368 16:26:08 planck yellow 2 2 191 111 0 4 27 2 48.3ms 86.0%
+
+
+
+aumenta velocidade de comunicação
+
+curl -XPUT localhost:9200/_cluster/settings -H 'Content-Type: application/json' -d '{ "transient" : {"indices.recovery.max_bytes_per_sec" : "800mb"} }';echo
